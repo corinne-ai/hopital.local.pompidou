@@ -2,12 +2,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Zap, Ambulance, Clock, Users, AlertTriangle, Heart, Activity } from "lucide-react";
+import { Zap, Ambulance, Clock, Users, AlertTriangle, Heart, Activity, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navigate } from "react-router-dom";
 
 const Emergency = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   if (!user || user.service !== "urgences") {
     return <Navigate to="/" replace />;
@@ -80,7 +80,7 @@ const Emergency = () => {
                 </div>
               </div>
             </div>
-            <div className="text-right">
+            <div className="flex items-center gap-6">
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-emergency-service">3</div>
@@ -95,6 +95,14 @@ const Emergency = () => {
                   <p className="text-xs text-muted-foreground">P3 Standards</p>
                 </div>
               </div>
+              <Button 
+                variant="outline" 
+                onClick={logout}
+                className="flex items-center gap-2"
+              >
+                <LogOut className="h-4 w-4" />
+                Déconnexion
+              </Button>
             </div>
           </div>
         </div>

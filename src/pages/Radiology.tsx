@@ -2,12 +2,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Brain, Scan, Monitor, Calendar, FileX, Eye, Download } from "lucide-react";
+import { Brain, Scan, Monitor, Calendar, FileX, Eye, Download, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navigate } from "react-router-dom";
 
 const Radiology = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   if (!user || user.service !== "radiologie") {
     return <Navigate to="/" replace />;
@@ -47,9 +47,19 @@ const Radiology = () => {
                 <p className="text-muted-foreground">Interface du Radiologue - {user.name}</p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-sm text-muted-foreground">Station de travail</p>
-              <p className="text-lg font-semibold">Poste R-{user.id}</p>
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                <p className="text-sm text-muted-foreground">Station de travail</p>
+                <p className="text-lg font-semibold">Poste R-{user.id}</p>
+              </div>
+              <Button 
+                variant="outline" 
+                onClick={logout}
+                className="flex items-center gap-2"
+              >
+                <LogOut className="h-4 w-4" />
+                Déconnexion
+              </Button>
             </div>
           </div>
         </div>

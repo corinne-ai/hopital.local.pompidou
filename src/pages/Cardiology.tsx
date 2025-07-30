@@ -2,12 +2,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Heart, Activity, Users, Calendar, FileText, AlertTriangle, TrendingUp } from "lucide-react";
+import { Heart, Activity, Users, Calendar, FileText, AlertTriangle, TrendingUp, LogOut } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Navigate } from "react-router-dom";
 
 const Cardiology = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   if (!user || user.service !== "cardiologie") {
     return <Navigate to="/" replace />;
@@ -40,9 +40,19 @@ const Cardiology = () => {
                 <p className="text-muted-foreground">Interface du Cardiologue - {user.name}</p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-sm text-muted-foreground">Dernière connexion</p>
-              <p className="text-lg font-semibold">{new Date().toLocaleString()}</p>
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                <p className="text-sm text-muted-foreground">Dernière connexion</p>
+                <p className="text-lg font-semibold">{new Date().toLocaleString()}</p>
+              </div>
+              <Button 
+                variant="outline" 
+                onClick={logout}
+                className="flex items-center gap-2"
+              >
+                <LogOut className="h-4 w-4" />
+                Déconnexion
+              </Button>
             </div>
           </div>
         </div>
